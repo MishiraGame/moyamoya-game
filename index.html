@@ -31,9 +31,9 @@ button{touch-action:manipulation}summary{cursor:pointer;min-height:44px;padding:
 .version-badge{position:fixed;right:8px;bottom:3px;z-index:31;font:11px system-ui;color:#e4edf6;background:#102139e6;padding:2px 6px;border-radius:5px;pointer-events:none}.error-detail{overflow-wrap:anywhere;font-size:13px;color:#ffd6c8}
 
 @media(pointer:coarse){body[data-one-hand="true"] .bottom #burst{display:none}body[data-one-hand="true"] .bottom .move-pad{width:144px;min-width:120px;height:110px}body[data-one-hand="true"] .pad-ring{width:94px;height:94px}body[data-one-hand="true"] .move-pad[data-ready="true"] .pad-ring{border:3px solid #ffe48c;background:#ffe48c20;box-shadow:0 0 0 4px #ffe48c18}body[data-one-hand="true"] .move-pad[data-boosted="true"] .pad-ring{border-color:#d9b4ff}#padStatus{font-size:12px;white-space:nowrap}#controlMode{width:100%;margin:8px 0;min-height:44px}}@media(pointer:coarse) and (max-height:500px){body[data-one-hand="true"] .bottom .move-pad{height:82px}body[data-one-hand="true"] .pad-ring{width:66px;height:66px}}
-#trainingPanel{position:fixed;z-index:25;left:50%;transform:translateX(-50%);bottom:calc(var(--control-height,0px) + 16px);width:min(90vw,520px);box-sizing:border-box;padding:12px 16px;border:1px solid #c8f5d2;border-radius:16px;background:#142b38f5;color:#fff}#trainingPanel[hidden]{display:none}#trainingPanel p{font-size:14px;line-height:1.5;margin:6px 0}#trainingPanel button{min-height:44px;font-size:12px;padding:6px 10px}#trainingPanel div{display:flex;gap:6px;flex-wrap:wrap}body[data-screen="pause"] #trainingPanel{display:none}@media(pointer:coarse){#trainingPanel{bottom:154px}}@media(pointer:coarse) and (max-height:500px){#trainingPanel{bottom:100px;left:8px;transform:none;width:55vw;padding:6px 10px}}
-</style><aside id="trainingPanel" hidden aria-label="練習の案内"><strong id="trainingHeading"></strong><p id="trainingText" aria-live="polite"></p><div><button id="trainingRetry">この練習をやり直す</button><button id="trainingNext" hidden>次へ</button><button id="trainingExit">タイトルへ</button></div></aside>
-<div class="version-badge" aria-label="ゲームのバージョン">v0.11.0</div><canvas id="game"></canvas><div id="mobileBurstResult" class="mobile-burst-result" aria-hidden="true" hidden><div id="mobileBurstKills" class="mobile-result-kills"></div><div id="mobileBurstMultiplier" class="mobile-result-multiplier"></div><div id="mobileBurstPoints" class="mobile-result-points"></div></div>
+#trainingPanel{position:fixed;z-index:25;left:50%;transform:translateX(-50%);bottom:calc(var(--control-height,0px) + 16px);width:min(90vw,520px);box-sizing:border-box;padding:12px 16px;border:1px solid #c8f5d2;border-radius:16px;background:#142b38f5;color:#fff}#trainingPanel[hidden],#trainingTypeChoices[hidden]{display:none}#trainingTypeChoices button[aria-pressed="true"]{border:2px solid #ffe48c;color:#ffe48c}#trainingPanel p{font-size:14px;line-height:1.5;margin:6px 0}#trainingPanel button{min-height:44px;font-size:12px;padding:6px 10px}#trainingPanel div{display:flex;gap:6px;flex-wrap:wrap}body[data-screen="pause"] #trainingPanel{display:none}@media(pointer:coarse){#trainingPanel{bottom:154px}}@media(pointer:coarse) and (max-height:500px){#trainingPanel{bottom:100px;left:8px;transform:none;width:55vw;padding:6px 10px}}
+</style><aside id="trainingPanel" hidden aria-label="練習の案内"><strong id="trainingHeading"></strong><p id="trainingText" aria-live="polite"></p><div id="trainingTypeChoices" hidden><button id="practice-chain">連鎖</button><button id="practice-push">衝撃</button><button id="practice-pull">吸収</button></div><div><button id="trainingRetry">この練習をやり直す</button><button id="trainingNext" hidden>次へ</button><button id="trainingExit">タイトルへ</button></div></aside>
+<div class="version-badge" aria-label="ゲームのバージョン">v0.12.0</div><canvas id="game"></canvas><div id="mobileBurstResult" class="mobile-burst-result" aria-hidden="true" hidden><div id="mobileBurstKills" class="mobile-result-kills"></div><div id="mobileBurstMultiplier" class="mobile-result-multiplier"></div><div id="mobileBurstPoints" class="mobile-result-points"></div></div>
 <div class="hud"><div><div class="sub">MOYAMOYA / BURST</div><div id="score" class="score">0</div><div id="count">0 撃破</div><span id="best" hidden>0 体</span></div><div><div class="clock" id="clock">1:00</div><div class="sub" id="phase">1 MINUTE RESET</div></div><div class="pressure-column"><div id="hp" class="pressure-hud" data-band="low" role="group" aria-label="圧力 0パーセント"></div></div></div>
 <div class="tools" id="gameTools"><button id="audioSettings">設定</button><button id="pause">一時停止</button></div>
 <div class="bottom" id="controls"><div id="movePad" class="move-pad" aria-label="移動パッド"><div class="pad-ring"><div id="moveThumb" class="pad-thumb"></div></div><span id="padStatus">ドラッグで移動</span></div><p class="hint">移動：WASD / 矢印 / 画面をドラッグ<br>攻撃：Space / 右のボタン</p><div class="deck-tools"><button id="deckPause">一時停止</button></div><button class="primary" id="burst">光を放つ！</button></div>
@@ -41,7 +41,7 @@ button{touch-action:manipulation}summary{cursor:pointer;min-height:44px;padding:
 <div id="settingsBackdrop" class="settings-backdrop hidden"></div><div class="audio-panel hidden" id="audioPanel" role="dialog" aria-modal="true" aria-label="設定"><button id="sound">サウンド OFF</button><button id="fx">光・揺れ 標準</button><label>遊び心地 <select id="moodPreset"><option value="active">すっきり</option><option value="relax">のんびり</option></select></label><p class="preset-hint">次のプレーから反映。のんびりは敵の速度・数と得点表示を控えめにします。</p><label>BGM <input id="bgmVolume" type="range" min="0" max="100" value="55"></label><label>効果音 <input id="sfxVolume" type="range" min="0" max="100" value="70"></label><button id="numbers">敵ごとの得点 ON</button> <button id="controlMode">操作：片手</button><button id="handedness">移動：左 ／ 光：右</button><button id="helpAgain">操作案内をもう一度</button><p id="settingsNotice" role="status"></p><button id="closeAudio">閉じる</button></div><div class="panel" id="overlay"><div class="box" id="box"></div></div>
 <script>
 'use strict';
-const GAME_VERSION="0.11.0";
+const GAME_VERSION="0.12.0";
 let faultVisible=false;
 function displayRuntimeFault(message){if(faultVisible)return;faultVisible=true;try{state='error';keys={};resetPad();show('<h1>ゲームを一時停止しました</h1><p>エラーが発生しました。下の内容をお知らせください。</p><p id="runtimeError" class="error-detail"></p><button id="faultHome">タイトルへ戻る</button>');$('runtimeError').textContent='v'+GAME_VERSION+' / '+String(message).slice(0,400);$('faultHome').onclick=()=>{faultVisible=false;resize();menu();scheduleFrame()}}catch{}}
 addEventListener('error',event=>displayRuntimeFault(event.message||'実行エラー'));
@@ -166,6 +166,11 @@ function guardInputs(){keys={};resetPad();inputReadyAt=performance.now()+180;las
 function drawProtection(){if(!['play','settling'].includes(state)||(p.pressureGraceUntil||0)<=t)return;g.save();g.strokeStyle='#adf2c4';g.lineWidth=3;g.globalAlpha=.8;g.beginPath();g.ellipse(p.x,p.y+22,24,9,0,0,Math.PI*2);g.stroke();g.lineWidth=2;g.beginPath();g.arc(p.x,p.y+22,7,-Math.PI/2,-Math.PI/2+Math.PI*2*Math.min(1,(p.pressureGraceUntil-t)/5));g.stroke();g.restore()}
 
 let training=null;
+const trainingTypes={
+ chain:{name:'連鎖',text:'範囲：中。密集した群れが得意です。火花を次の敵につなぎ、まとめて倒す数を増やします。',bonus:'火花で追加の敵を倒すと、1体につき6点のボーナスが入ります。',circle:'火花がより遠くの敵に届きます。'},
+ push:{name:'衝撃',text:'範囲：大。横に広がった群れが得意です。敵を吹き飛ばし、ほかの敵にぶつけて巻き込みます。',bonus:'衝突や戻る衝撃波で追加の敵を倒すと、1体につき5点のボーナスが入ります。',circle:'衝撃波が1回増え、衝突で巻き込む範囲も広がります。'},
+ pull:{name:'吸収',text:'範囲：特大。散らばった敵が得意です。敵を引き寄せ、追撃弾でさらに敵を倒します。',bonus:'追撃弾で新たな敵を倒すと、1体につき15点のボーナスが入ります。',circle:'引き寄せる範囲と、追撃弾で巻き込む範囲が広がります。'}
+};
 function startTutorial(){
  audioOn=homeAudio;initAudio();start(true);setTrainingStage(0);
 }
@@ -175,32 +180,42 @@ function trainingPack(n){
 function setTrainingStage(index){
  training={index,originX:W/2,originY:H/2,elapsed:0,done:false,baseScore:0,escapes:pressureStats.emergencies};
  p.x=W/2;p.y=H/2;p.pull=null;p.circleUntil=0;p.pressureGraceUntil=0;p.releaseMotion=null;
+ p.stage=level=index===5?2:0;p.fast=0;p.guard=0;
  enemies=[];bullets=[];queue=[];waves=[];bolts=[];launchers=[];clearZones=[];beacon=null;strain=0;pressure=0;charge=index===0?0:100;
  run.bursts=[];score=shownScore=kills=best=0;resetPad();guardInputs();
  if(index===1)trainingPack(3);if(index===2||index===3)trainingPack(30);
  if(index===3)strain=80;
- if(index===4)beacon={x:p.x+Math.min(115,W*.26),y:p.y,r:30,used:false};
+ if(index===4){trainingPack(24);beacon={x:p.x+Math.min(115,W*.26),y:p.y,r:30,used:false};}
+ if(index===5){trainingPack(36);for(let i=0;i<24;i++){addEnemy(true,i);const e=enemies.at(-1);Object.assign(e,{type:0,hp:1,r:14,v:0,flank:0,x:Math.max(25,Math.min(W-25,p.x+(i%2?1:-1)*(110+(i%6)*24))),y:p.y-100-Math.floor(i/6)*32,age:2});}}
  const move=touchDevice?'パッドをドラッグして':'矢印キー / WASDで';
- const release=touchDevice?(oneHand?'一度指を離して、パッドを短くタップ':'攻撃ボタンを押す'):'Spaceを押す';
- const titles=['移動してみよう','光を放ってみよう','まとめて倒して稼ごう','圧力が高まったら','光のサークルを取ろう'];
- const texts=[move+'、少し移動しましょう。'+(touchDevice?'指':'キー')+'を離すと止まります。',
- '光の輪が満ちています。'+release+'と、ためた光を放てます。近くの敵に向けて試しましょう。',
- '同じ一発で多く倒すほど得点の倍率が上がります。群れの近くで光を放ち、20体以上まとめて倒しましょう。',
+ const release=touchDevice?(oneHand?'一度指を離し、パッドを短くタップしてください。':'攻撃ボタンを押してください。'):'Spaceキーを押してください。';
+ const titles=['移動してみよう','光を放ってみよう','まとめて倒して稼ごう','圧力が高まったら','サークルで攻撃を強めよう','タイプの特徴を試そう'];
+ const texts=[move+'少し移動しましょう。'+(touchDevice?'指':'キー')+'を離すと止まります。',
+ '光の輪が満ちたら、ためた光を放てます。'+release+'近くの敵を倒してみましょう。',
+ '一度に多くの敵を倒すほど、得点の倍率が上がります。群れの近くで光を放ち、20体以上まとめて倒しましょう。',
  '周囲のモヤと主人公の外側の輪が、圧力の目印です。限界になる前に光を放ちましょう。限界になるとモヤが逃げ、その分は得点になりません。',
- '紫のサークルまで移動しましょう。取ると次の攻撃が強くなります。効果は5秒間です。'];
- $('trainingHeading').textContent=(index+1)+' / 5　'+titles[index];$('trainingText').textContent=texts[index];$('trainingPanel').hidden=false;$('trainingNext').hidden=true;
+ '紫のサークルに入りましょう。取得してから5秒以内に光を放つと、次の1回の攻撃が強くなります。',
+ trainingTypes[kind].name+'：'+trainingTypes[kind].text+'ここでは終盤まで強化した状態で練習できます。光を放ってみましょう。'];
+ $('trainingHeading').textContent=(index+1)+' / 6　'+titles[index];$('trainingText').textContent=texts[index];$('trainingPanel').hidden=false;$('trainingNext').hidden=true;
+ $('trainingTypeChoices').hidden=index!==5;
+ for(const id of ['chain','push','pull']){$('practice-'+id).setAttribute?.('aria-pressed',String(id===kind));$('practice-'+id).onclick=()=>{kind=id;setTrainingStage(5)}}
  $('trainingRetry').onclick=()=>setTrainingStage(training.index);$('trainingExit').onclick=menu;
- $('trainingNext').onclick=()=>{if(!training?.done)return;training.index===4?completeTraining():setTrainingStage(training.index+1)};
- $('trainingNext').textContent=index===4?'練習を終える':'次へ';
+ $('trainingNext').onclick=()=>{if(!training?.done)return;training.index===5?completeTraining():setTrainingStage(training.index+1)};
+ $('trainingNext').textContent=index===5?'練習を終える':'次へ';
 }
 function trainingTick(dt){
  if(!training||training.done)return;training.elapsed+=dt;
  const b=run.bursts.find(b=>b.kills>0);let message='';
  if(training.index===0&&Math.hypot(p.x-training.originX,p.y-training.originY)>45)message='移動できました！次は光を放ってみましょう。';
- if(training.index===1&&b)message='光を放てました！ためる光は、時間と撃破で増えていきます。';
+ if(training.index===1&&b)message='光を放てました！光は時間がたつとたまり、敵を倒すことでも増えます。';
  if(training.index===2&&b?.kills>=20&&!hasPendingAttacks())message=b.kills+'体まとめて撃破！ ×'+comboFactor(b.kills).toFixed(2)+'で '+Math.floor(b.score).toLocaleString()+'点。敵が集まるのを待つと、大きく稼げます。';
- if(training.index===3&&b)message='光を放って得点にできました！実戦では圧力が高いほど得点のボーナスも増えます。待ちすぎには気をつけましょう。';
- if(training.index===4&&beacon?.used)message='サークルを取れました！紫の光が残っている間に放つと、選んだタイプの攻撃が強くなります。';
+ if(training.index===3&&b)message='光を放って敵を倒せました！実戦では圧力が高いほど得点のボーナスも増えます。待ちすぎには気をつけましょう。';
+ if(training.index===4){
+  if(run.bursts.some(q=>q.resonance&&q.kills>0)&&!hasPendingAttacks())message='強化した光で倒せました！'+trainingTypes[kind].name+'では、'+trainingTypes[kind].circle+'サークルを取った後は、圧力も5秒間たまりにくくなります。';
+  else if(beacon?.used&&p.circleUntil>t)$('trainingText').textContent='サークルを取りました！紫の光が消える前に、敵の近くで光を放ちましょう。'+trainingTypes[kind].circle;
+  else if(beacon?.used&&!hasPendingAttacks())$('trainingText').textContent='「この練習をやり直す」で、もう一度サークルを取れます。取得してから5秒以内に光を放ち、敵を倒しましょう。';
+ }
+ if(training.index===5&&b&&!hasPendingAttacks())message=trainingTypes[kind].name+'で'+best+'体倒せました！'+trainingTypes[kind].bonus+'このボーナスにも、まとめ撃破の倍率がかかります。下のボタンで別のタイプも試せます。';
  if(message){training.done=true;$('trainingText').textContent=message;$('trainingNext').hidden=false;}
  else if(training.index===3&&pressureStats.emergencies>training.escapes)$('trainingText').textContent='圧力が限界になり、モヤが逃げました。この分の得点は入りません。「この練習をやり直す」で、今度は早めに光を放ちましょう。';
  else if(training.index===2&&b&&!hasPendingAttacks())$('trainingText').textContent='今回は'+b.kills+'体。群れに近づいて、もう一度挑戦しましょう。「この練習をやり直す」で敵を戻せます。';
@@ -211,7 +226,7 @@ function completeTraining(){
  $('trainingPlay').onclick=start;$('trainingHome').onclick=menu;
 }
 
-function menu(){training=null;$('trainingPanel').hidden=true;closeSettings();state='menu';resetPad();$('upgradeNote').classList.add('hidden');let fit={chain:'密集した群れに',push:'横に並ぶ群れに',pull:'散らばった敵に'},rangeLabel={chain:'範囲：中',push:'範囲：大',pull:'範囲：特大'};show('<div class="title-top"><div class="sub">スマートフォン版 · v0.11.0</div><h1>モヤモヤ・バースト</h1><p>ためた光で、モヤを晴らそう。</p></div><div class="title-actions"><div class="record" id="titleRecord" aria-label="ハイスコア">'+recordText()+'<small class="best-count">一度に倒した自己ベスト '+(countRecords[recordSlot()]||0).toLocaleString()+'体</small></div><div class="title-types" role="group" aria-label="攻撃のタイプ">'+types.map(([id,n])=>'<button data-kind="'+id+'" aria-pressed="'+(id===kind)+'" class="'+(id===kind?'selected':'')+'">'+'<span class="type-demo '+id+'" aria-hidden="true"><i></i><i></i><i></i></span><b>'+n+'</b><span class="range-badge">'+rangeLabel[id]+'</span><small>'+fit[id]+(id==='push'?' · おすすめ':'')+'</small></button>').join('')+'</div><div class="type-caption">'+({chain:'密集した群れに火花をつなぐ。',push:'広く飛ばして、ぶつけて倒す。',pull:'散った敵を集め、追撃で倒す。'}[kind])+'</div><p class="combo-guide">'+(touchDevice?(oneHand?'ドラッグで移動。光が満ちたら、パッドを短くタップ。':'パッドで移動。光が満ちたら、攻撃ボタン。'):'矢印キー / WASDで移動。光が満ちたらSpace。')+'</p><button class="primary title-start" id="start">60秒ではじめる</button><div class="title-links"><button id="openTutorial">操作を練習</button><button id="openGuide">キャラクター図鑑</button><button id="homeSettings">設定</button></div><button class="title-audio" id="homeSound">サウンド '+(homeAudio?'ON':'OFF')+'</button></div>');document.querySelectorAll('[data-kind]').forEach(button=>button.onclick=()=>{kind=button.dataset.kind;savePreferences();menu()});$('start').onclick=()=>{audioOn=homeAudio;initAudio();$('sound').textContent='サウンド '+(audioOn?'ON':'OFF');start()};$('openTutorial').onclick=startTutorial;$('openGuide').onclick=showGuide;$('homeSettings').onclick=()=>openSettings();$('homeSound').onclick=()=>{homeAudio=!homeAudio;audioOn=homeAudio;syncPreferences();savePreferences();$('homeSound').textContent='サウンド '+(homeAudio?'ON':'OFF')};}
+function menu(){training=null;$('trainingPanel').hidden=true;closeSettings();state='menu';resetPad();$('upgradeNote').classList.add('hidden');let fit={chain:'密集した群れに',push:'横に並ぶ群れに',pull:'散らばった敵に'},rangeLabel={chain:'範囲：中',push:'範囲：大',pull:'範囲：特大'};show('<div class="title-top"><div class="sub">スマートフォン版 · v0.12.0</div><h1>モヤモヤ・バースト</h1><p>ためた光で、モヤを晴らそう。</p></div><div class="title-actions"><div class="record" id="titleRecord" aria-label="ハイスコア">'+recordText()+'<small class="best-count">一度に倒した自己ベスト '+(countRecords[recordSlot()]||0).toLocaleString()+'体</small></div><div class="title-types" role="group" aria-label="攻撃のタイプ">'+types.map(([id,n])=>'<button data-kind="'+id+'" aria-pressed="'+(id===kind)+'" class="'+(id===kind?'selected':'')+'">'+'<span class="type-demo '+id+'" aria-hidden="true"><i></i><i></i><i></i></span><b>'+n+'</b><span class="range-badge">'+rangeLabel[id]+'</span><small>'+fit[id]+(id==='push'?' · おすすめ':'')+'</small></button>').join('')+'</div><div class="type-caption">'+({chain:'密集した群れに火花をつなぐ。',push:'広く飛ばして、ぶつけて倒す。',pull:'散った敵を集め、追撃で倒す。'}[kind])+'</div><p class="combo-guide">'+(touchDevice?(oneHand?'ドラッグで移動。光が満ちたら、パッドを短くタップ。':'パッドで移動。光が満ちたら、攻撃ボタン。'):'矢印キー / WASDで移動。光が満ちたらSpace。')+'</p><button class="primary title-start" id="start">60秒ではじめる</button><div class="title-links"><button id="openTutorial">操作を練習</button><button id="openGuide">キャラクター図鑑</button><button id="homeSettings">設定</button></div><button class="title-audio" id="homeSound">サウンド '+(homeAudio?'ON':'OFF')+'</button></div>');document.querySelectorAll('[data-kind]').forEach(button=>button.onclick=()=>{kind=button.dataset.kind;savePreferences();menu()});$('start').onclick=()=>{audioOn=homeAudio;initAudio();$('sound').textContent='サウンド '+(audioOn?'ON':'OFF');start()};$('openTutorial').onclick=startTutorial;$('openGuide').onclick=showGuide;$('homeSettings').onclick=()=>openSettings();$('homeSound').onclick=()=>{homeAudio=!homeAudio;audioOn=homeAudio;syncPreferences();savePreferences();$('homeSound').textContent='サウンド '+(homeAudio?'ON':'OFF')};}
 function showGuide(){state='guide';show('<section class="guide-box field-guide" role="dialog" aria-modal="true" aria-label="キャラクター図鑑"><div class="guide-toolbar"><button id="closeGuide">← タイトルへ</button><strong>キャラクター図鑑</strong></div><div class="guide-scroll" tabindex="0"><section class="world-story"><h2>モヤが生まれる庭</h2><p>庭をめぐる光の粒は、ときどき絡まり、モヤになります。<br>光の精霊は、輪っかにためた光を放って、絡まりをほどきます。<br>モヤは光の粒に戻り、庭はまた明るくなります。</p><p>モヤに囲まれると、輪っかの外側にモヤが絡まり、圧力がかかります。限界になると輪が押し広がり、近くのモヤが逃げてしまいます。</p></section><section class="quick-guide"><p>片手操作：パッドをドラッグして移動し、短くタップすると光を放ちます。移動後に指を離すと停止します。設定から操作する手と、片手・両手を選べます。</p><h2>光の輪が満ちたら、ボタンで光を放とう！</h2><div class="pressure-examples">'+[0,50,90].map((v,i)=>'<div><canvas id="pressureExample'+i+'" width="160" height="100" aria-hidden="true"></canvas><b>'+['余裕','混雑','限界間近'][i]+'</b></div>').join('')+'</div><p>画面の縁にモヤが迫ったら、光を放ってすっきり！<br><strong>逃げたモヤは得点になりません。</strong><br>限界になる前に、ボタンで光を放ちましょう。</p><details><summary>圧力と得点のしくみ</summary><p><b>通常の光</b>：ボタンを押すと、タイプに応じた光を放ちます。<br><b>限界近くで放つ光（圧力80%以上）</b>：主人公が縮んでから大きく弾け、金色の光が広がります。<br><b>限界になるとモヤが逃げる</b>：輪っかが押し広がり、近くのモヤを押し返します。逃げたモヤの得点は入りません。たまった力は、そのまま次の攻撃に使えます。<br><br>敵に囲まれたり、ぶつかったりすると圧力が上がります。光を放って敵を倒したり、空いた場所へ移動したり、緑の光を拾ったりすると下がります。<br>圧力が最大になると輪が押し広がり、近くのモヤが逃げていきます。<br>ボタンの攻撃で敵を倒すと、発動時の圧力20%につき50点のボーナスが入ります。このボーナスにも、まとめ撃破の倍率がかかります。<br>1回の攻撃で倒した敵が20体増えるごとに、得点倍率が上がります。80体×2、160体×3、240体×4、320体以上×5。<br>光のサークルは、次に放つ光を強くします。取ると、光が主人公に集まります。紫の輪と✦付きのボタンが、次の攻撃の強化を示します。足元の緑の輪が残っている間は、圧力が上がりにくくなります。5秒以内に放つ次の攻撃は、攻撃範囲が15%広がります。狙いを定めやすいように、取ってから5秒間は圧力の上昇も半分になります。</p></details></section><div class="character-sheet">'+[
 [-1,'光の精霊','輪っかに光をためて、庭のモヤを晴らす精霊。','輪っかの内側には、放つための光がたまります。外側にモヤが絡まると、圧力が高まります。たくさん集めてから光を放つと、高得点のチャンス。ただし、圧力が限界になるとモヤが逃げてしまいます。'],
 [0,'モヤ玉','群れで近づいてきます。集まったところが狙い目！','基本得点は10点。まとめて倒すと、得点倍率を上げやすい敵です。'],
